@@ -17,7 +17,7 @@ fps_clock = pygame.time.Clock()
 simulator = lib.TimeManager()
 virus = lib.Virus(1, 1, 0)
 
-lib.Building.generate_buildings(50, 100)
+lib.Building.generate_buildings(42, 42)
 lib.Person.generate_people(lib.Building.get_homes(), 2)
 
 print(f'Starting sim with {str(len(lib.Person.people))} people ({lib.Person.infection_count} starting infections), {str(len(lib.Building.homes))} homes and {str(len(lib.Building.stores))} stores.')
@@ -42,7 +42,11 @@ while True:
         print('Time: ' + str(simulator.time))
         print('Day: ' + str(simulator.day))
 
+    # Render stuff
     display.fill(white)
+
+    for building in lib.Building.get_homes() + lib.Building.get_stores():
+        building.render(display)
 
     frame_count += 1
     pygame.display.update()

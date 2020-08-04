@@ -52,6 +52,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
+    <Folder Include="sprites\" />
+    <Folder Include="sprites\person_bar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sprites\building.png" />
+    <Content Include="sprites\person_bar\b13.png" />
+    <Content Include="sprites\person_bar\b4.png" />
+    <Content Include="sprites\person_bar\b3.png" />
+    <Content Include="sprites\person_bar\b2.png" />
+    <Content Include="sprites\person_bar\b1.png" />
+    <Content Include="sprites\person_bar\b12.png" />
+    <Content Include="sprites\person_bar\b11.png" />
+    <Content Include="sprites\person_bar\b10.png" />
+    <Content Include="sprites\person_bar\b9.png" />
+    <Content Include="sprites\person_bar\b8.png" />
+    <Content Include="sprites\person_bar\b7.png" />
+    <Content Include="sprites\person_bar\b6.png" />
+    <Content Include="sprites\person_bar\b5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

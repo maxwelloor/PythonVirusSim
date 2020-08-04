@@ -38,6 +38,7 @@ class TimeManager:
                 if p.location != p.home:
                     p.location.occupants -= 1
                     p.location = p.home
+                    p.home.occupants += 1
 
             for person in people:
                 if person.infected:
@@ -57,6 +58,7 @@ class TimeManager:
                         else:
                             new_location.occupants += 1
                             person.location = new_location
+                            person.home.occupants -= 1
                             break
             
             for person in people:

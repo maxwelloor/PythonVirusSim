@@ -12,10 +12,10 @@ class Person:
         self.immune = False
         self.days_infected = 0
         self.mask_on = False
-        self.in_building = None
 
         self.home = home
         self.location = self.home
+        self.home.occupants += 1
 
         Person.people.append(self)
 
