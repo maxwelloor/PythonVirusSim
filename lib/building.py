@@ -1,39 +1,56 @@
 import pygame
 
 class Building:
+    pygame.font.init()
     homes = []
     stores = []
+
+    first = True
+    black = (0, 0, 0)
 
     h_x = 0
     h_y = 20
     h_count = 0
 
     s_x = 0
-    s_y = 540
+    s_y = 0
     s_count = 0
+
+    total_y = 0
+
+    font = pygame.font.SysFont('arial', 16)
+    store_img = pygame.image.load('sprites\\building.png')
+    house_img = pygame.image.load('sprites\\building.png')
+    infection_counter_img = pygame.image.load('sprites\\infection_symbol.png')
+
+    occupant_bar_store = []
+    occupant_bar_house = []
+
+    for x in range(1, 14):
+        occupant_bar_store.append(pygame.image.load('sprites\\person_bar_store\\b' + str(x) + '.png'))
+
+    for x in range(1, 6):
+        occupant_bar_house.append(pygame.image.load('sprites\\person_bar_house\\b' + str(x) + '.png'))
 
     def __init__(self, type):
         self.type = type
         self.occupants = 0
         self.occupant_bar = []
         self.limit = 0
-        self.img = pygame.image.load('sprites\\building.png')
-
-        for x in range(1, 14):
-            self.occupant_bar.append(pygame.image.load('sprites\\person_bar\\b' + str(x) + '.png'))
+        self.infections_spread_here = 0
+        self.img = Building.store_img
+        self.ic_img = Building.infection_counter_img
+        self.occupant_bar_house = Building.occupant_bar_house
+        self.occupant_bar_store = Building.occupant_bar_store
 
         if self.type == 'house':
             self.limit = 4
 
-            if Building.s_count >= 14:
-                Building.s_count = 0
-                Building.s_x = 0
-                Building.s_y += 158
-
             if Building.h_count >= 14:
                 Building.h_count = 0
                 Building.h_x = 0
-                Building.h_y += 158
+                Building.h_y += 168
+                Building.total_y += 168
 
             self.x = Building.h_x
             self.y = Building.h_y
@@ -42,17 +59,42 @@ class Building:
             Building.h_count += 1
 
         else:
+
             self.limit = 12
+
+            if Building.first:
+                Building.first = False
+                Building.s_y = Building.h_y + 200
+                Building.total_y += 200
+            
+            if Building.s_count >= 14:
+                Building.s_count = 0
+                Building.s_x = 0
+                Building.s_y += 168
+                Building.total_y += 168
+
             self.x = Building.s_x
             self.y = Building.s_y
 
             Building.s_x += 138
             Building.s_count += 1
 
-    def render(self, display):
-        display.blit(self.img, (self.x, self.y))
+    def render(self, display, offset):
+        # The building image
+        display.blit(self.img, (self.x, self.y + offset))
         
-        display.blit(self.occupant_bar[self.occupants], (self.x + 3, self.y + 128))
+        # The occupant bar
+        if self.type == 'store':
+            display.blit(self.occupant_bar_store[self.occupants], (self.x + 3, self.y + 128 + offset))
+        else:
+            display.blit(self.occupant_bar_house[self.occupants], (self.x + 3, self.y + 128 + offset))
+
+        # The infection counter
+        display.blit(self.ic_img, (self.x, self.y + offset))
+
+        i_count = Building.font.render('x' + str(self.infections_spread_here), 1, Building.black)
+        display.blit(i_count, (self.x + Building.infection_counter_img.get_width(), self.y + offset))
+
 
 
     @classmethod

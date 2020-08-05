@@ -13,6 +13,9 @@ class TimeManager:
         everyone_infected = True
         recoveries = recovery_count
         deaths = death_count
+        current_infections = infection_count
+
+        virus.roll_notice_chance(death_count, current_infections)
 
         for person in people:
             if person.infected:
@@ -73,14 +76,7 @@ class TimeManager:
                     else:
                         if p.location == location_to_check:
                             if virus.roll_spread_chance():
-                                p.infect()
-                
-
-
-                    
+                                p.infect() 
         
         self.time += 1
-
-        
-
 

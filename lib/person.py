@@ -4,6 +4,7 @@ class Person:
 
     people = []
     infection_count = 0
+    current_infections = 0
     recoveries = 0
     death_count = 0
     
@@ -22,17 +23,21 @@ class Person:
     def infect(self):
         if not self.infected and not self.immune:
             self.infected = True
+            self.location.infections_spread_here += 1
             Person.infection_count += 1
+            Person.current_infections += 1
             print('Person Infected.')
 
     def kill(self):
         print("Someone has died.")
         Person.death_count += 1
+        Person.current_infections -= 1
         Person.people.remove(self)
 
     def recover(self):
         print("Someone has recovered!")
         Person.recoveries += 1
+        Person.current_infections -= 1
         self.infected = False
         self.immune = True
 

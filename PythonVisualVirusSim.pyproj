@@ -25,6 +25,12 @@
     <Compile Include="lib\building.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\hud_manager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\scroller.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\virus.py">
       <SubType>Code</SubType>
     </Compile>
@@ -53,23 +59,30 @@
   <ItemGroup>
     <Folder Include="lib\" />
     <Folder Include="sprites\" />
-    <Folder Include="sprites\person_bar\" />
+    <Folder Include="sprites\person_bar_store\" />
+    <Folder Include="sprites\person_bar_house\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="sprites\building.png" />
-    <Content Include="sprites\person_bar\b13.png" />
-    <Content Include="sprites\person_bar\b4.png" />
-    <Content Include="sprites\person_bar\b3.png" />
-    <Content Include="sprites\person_bar\b2.png" />
-    <Content Include="sprites\person_bar\b1.png" />
-    <Content Include="sprites\person_bar\b12.png" />
-    <Content Include="sprites\person_bar\b11.png" />
-    <Content Include="sprites\person_bar\b10.png" />
-    <Content Include="sprites\person_bar\b9.png" />
-    <Content Include="sprites\person_bar\b8.png" />
-    <Content Include="sprites\person_bar\b7.png" />
-    <Content Include="sprites\person_bar\b6.png" />
-    <Content Include="sprites\person_bar\b5.png" />
+    <Content Include="sprites\infection_symbol.png" />
+    <Content Include="sprites\person_bar_store\b13.png" />
+    <Content Include="sprites\person_bar_store\b4.png" />
+    <Content Include="sprites\person_bar_store\b3.png" />
+    <Content Include="sprites\person_bar_store\b2.png" />
+    <Content Include="sprites\person_bar_store\b1.png" />
+    <Content Include="sprites\person_bar_store\b12.png" />
+    <Content Include="sprites\person_bar_store\b11.png" />
+    <Content Include="sprites\person_bar_store\b10.png" />
+    <Content Include="sprites\person_bar_store\b9.png" />
+    <Content Include="sprites\person_bar_store\b8.png" />
+    <Content Include="sprites\person_bar_store\b7.png" />
+    <Content Include="sprites\person_bar_store\b6.png" />
+    <Content Include="sprites\person_bar_store\b5.png" />
+    <Content Include="sprites\person_bar_house\b1.png" />
+    <Content Include="sprites\person_bar_house\b2.png" />
+    <Content Include="sprites\person_bar_house\b3.png" />
+    <Content Include="sprites\person_bar_house\b4.png" />
+    <Content Include="sprites\person_bar_house\b5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
