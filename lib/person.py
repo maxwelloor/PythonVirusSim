@@ -32,6 +32,7 @@ class Person:
         print("Someone has died.")
         Person.death_count += 1
         Person.current_infections -= 1
+        self.location.occupants -= 1
         self.home.deaths_here += 1
         Person.people.remove(self)
 
