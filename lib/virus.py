@@ -29,7 +29,7 @@ class Virus:
     def roll_notice_chance(self, current_deaths, current_infections):
         roll = random.randint(0, 1000)
 
-        if roll <= self.noticibilty * (10 * current_deaths):
+        if roll <= self.noticibilty * current_deaths:
             self.notice()
 
     def notice(self):

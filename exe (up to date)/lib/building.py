@@ -23,6 +23,7 @@ class Building:
     house_img = pygame.image.load('sprites\\house.png')
     infection_counter_img = pygame.image.load('sprites\\infection_symbol.png')
     death_counter_img = pygame.image.load('sprites\\death_symbol.png')
+    sick_counter_img = pygame.image.load('sprites\\sick_counter.png')
 
     occupant_bar_store = []
     occupant_bar_house = []
@@ -39,10 +40,12 @@ class Building:
         self.occupant_bar = []
         self.limit = 0
         self.infections_spread_here = 0
+        self.sick_people_here = 0
         self.deaths_here = 0
         self.img = Building.store_img
         self.ic_img = Building.infection_counter_img
         self.dc_img = Building.death_counter_img
+        self.sc_img = Building.sick_counter_img
         self.occupant_bar_house = Building.occupant_bar_house
         self.occupant_bar_store = Building.occupant_bar_store
 
@@ -97,10 +100,14 @@ class Building:
         # The infection counter
         display.blit(self.ic_img, (self.x, self.y + offset))
 
+        # The sick person counter
+        display.blit(self.sc_img, (self.x, self.y + offset + 20))
+        display.blit(Building.font.render('x' + str(self.sick_people_here), 1, Building.black), (self.x + self.sc_img.get_width(), self.y + offset + 20))
+
         # the death counter
         if self.type == 'house':
-            display.blit(self.dc_img, (self.x, self.y + offset + 20))
-            display.blit(Building.font.render('x' + str(self.deaths_here), 1, Building.black), (self.x + self.dc_img.get_width(), self.y + offset + 20))
+            display.blit(self.dc_img, (self.x, self.y + offset + 40))
+            display.blit(Building.font.render('x' + str(self.deaths_here), 1, Building.black), (self.x + self.dc_img.get_width(), self.y + offset + 40))
 
         i_count = Building.font.render('x' + str(self.infections_spread_here), 1, Building.black)
         display.blit(i_count, (self.x + Building.infection_counter_img.get_width(), self.y + offset))
