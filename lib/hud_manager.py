@@ -19,6 +19,8 @@ class HUD:
         self.total_deaths = 0
         self.total_recoveries = 0
         self.people_alive = 0
+        self.time = 0
+        self.day = 0
 
         # Top left
         self.simulation_settings_render = HUD.b_font.render('Simulation Settings:', 1, HUD.black)
@@ -33,8 +35,10 @@ class HUD:
         self.total_deaths_render = HUD.font.render('Total Deaths: ' + str(self.total_deaths), 1, HUD.black)
         self.total_recoveries_render = HUD.font.render('Total Recoveries: ' + str(self.total_recoveries), 1, HUD.black)
         self.people_alive_render = HUD.font.render('People Alive: ' + str(self.people_alive), 1, HUD.black)
+        self.time_render = HUD.font.render('Time: ' + str(self.time), 1, HUD.black)
+        self.day_render = HUD.font.render('Day: ' + str(self.day), 1, HUD.black)
 
-    def update(self, ci, ti, td, tr, pa, virus):
+    def update(self, ci, ti, td, tr, pa, virus, time, day):
         self.current_infections = ci
         self.current_infections_render = HUD.font.render('Current Infections: ' + str(self.current_infections), 1, HUD.black)
 
@@ -49,6 +53,16 @@ class HUD:
 
         self.people_alive = pa
         self.people_alive_render = HUD.font.render('People Alive: ' + str(self.people_alive), 1, HUD.black)
+
+        self.time = time
+
+        if self.time == 25:
+            self.time_render = HUD.font.render('Hour: 24', 1, HUD.black)
+        else:
+            self.time_render = HUD.font.render('Hour: ' + str(self.time), 1, HUD.black)
+
+        self.day = day
+        self.day_render = HUD.font.render('Day: ' + str(self.day), 1, HUD.black)
 
         if virus.noticed:
             self.virus_discovered_render = HUD.font.render('Virus Noticed: Yes', 1, HUD.black)
@@ -66,12 +80,14 @@ class HUD:
 
         # middle top of hud  will have the current stats of the simulation
         display.blit(self.live_stats_render, (HUD.screen_w / 2 - self.live_stats_render.get_width() / 2, HUD.border))
-        display.blit(self.current_infections_render, (HUD.screen_w / 2 - self.current_infections_render.get_width() - HUD.middle_gap, HUD.border + 17))
-        display.blit(self.total_infections_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17))
-        display.blit(self.total_deaths_render, (HUD.screen_w / 2 - self.total_deaths_render.get_width() - HUD.middle_gap, HUD.border + 17 * 2))
-        display.blit(self.total_recoveries_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 2))
-        display.blit(self.people_alive_render, (HUD.screen_w / 2 - self.people_alive_render.get_width() - HUD.middle_gap, HUD.border + 17 * 3))
-        display.blit(self.virus_discovered_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 3))
+        display.blit(self.time_render, (HUD.screen_w / 2 - self.time_render.get_width() - HUD.middle_gap, HUD.border + 17))
+        display.blit(self.day_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17))
+        display.blit(self.current_infections_render, (HUD.screen_w / 2 - self.current_infections_render.get_width() - HUD.middle_gap, HUD.border + 17 * 2))
+        display.blit(self.total_infections_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 2))
+        display.blit(self.total_deaths_render, (HUD.screen_w / 2 - self.total_deaths_render.get_width() - HUD.middle_gap, HUD.border + 17 * 3))
+        display.blit(self.total_recoveries_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 3))
+        display.blit(self.people_alive_render, (HUD.screen_w / 2 - self.people_alive_render.get_width() - HUD.middle_gap, HUD.border + 17 * 4))
+        display.blit(self.virus_discovered_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 4))
 
         # right side of top hud will have virus settings
 

@@ -1,16 +1,16 @@
 
 class Scroller:
 
-    def __init__(self, scroll_limit):
-        self.offset = 0
+    def __init__(self, scroll_limit_down):
+        self.offset = 100
         self.sensitivity = 30
-        self.scroll_limit = scroll_limit - 850
+        self.scroll_limit = scroll_limit_down - 850
 
     def scroll_wheel_up(self):
         self.offset += self.sensitivity
 
-        if self.offset > 0:
-            self.offset = 0
+        if self.offset > 100:
+            self.offset = 100
 
     def scroll_wheel_down(self):
         self.offset -= self.sensitivity

@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="sprites\building.png" />
+    <Content Include="sprites\death_symbol.png" />
+    <Content Include="sprites\house.png" />
     <Content Include="sprites\infection_symbol.png" />
     <Content Include="sprites\person_bar_store\b13.png" />
     <Content Include="sprites\person_bar_store\b4.png" />

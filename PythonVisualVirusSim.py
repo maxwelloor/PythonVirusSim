@@ -16,7 +16,7 @@ FPS = 30
 fps_clock = pygame.time.Clock()
 
 simulator = lib.TimeManager()
-virus = lib.Virus(10, 10, 0)
+virus = lib.Virus(10, 100, 10)
 
 houses = 100
 stores = 100
@@ -69,7 +69,7 @@ while True:
     for building in lib.Building.get_homes() + lib.Building.get_stores():
         building.render(display, scroller.get_offset())
 
-    hud.update(lib.Person.current_infections, lib.Person.infection_count, lib.Person.death_count, lib.Person.recoveries, len(lib.Person.people), virus)
+    hud.update(lib.Person.current_infections, lib.Person.infection_count, lib.Person.death_count, lib.Person.recoveries, len(lib.Person.people), virus, simulator.time, simulator.day)
     hud.render(display)
 
     frame_count += 1
