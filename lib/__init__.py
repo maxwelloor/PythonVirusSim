@@ -4,3 +4,4 @@ from .scroller import Scroller
 from .virus import Virus
 from .time_manager import TimeManager
 from .hud_manager import HUD
+from .simulation_setup import SimulationSetup

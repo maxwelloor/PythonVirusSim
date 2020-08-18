@@ -26,6 +26,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="lib\hud_manager.py" />
+    <Compile Include="lib\simulation_setup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\scroller.py">
       <SubType>Code</SubType>
     </Compile>

@@ -14,7 +14,7 @@ class HUD:
     b_font = pygame.font.SysFont('arial', 16, True)
     right_side_offset = 160
 
-    def __init__(self, num_houses, num_stores, virus):
+    def __init__(self, num_houses, num_stores, virus, settings):
         self.current_infections = 0
         self.total_infections = 0
         self.total_deaths = 0
@@ -22,12 +22,16 @@ class HUD:
         self.people_alive = 0
         self.time = 0
         self.day = 0
+        self.settings_dic = settings
 
         # Top left
         self.simulation_settings_render = HUD.b_font.render('Simulation Settings:', 1, HUD.black)
         self.num_houses_render = HUD.font.render('Number of Houses: ' + str(num_houses), 1, HUD.black)
         self.num_stores_render = HUD.font.render('Number of Stores: ' + str(num_stores), 1, HUD.black)
         self.total_people_render = HUD.font.render('Starting People: ' + str(num_houses * 4), 1, HUD.black)
+        self.starting_infections_render = HUD.font.render('Starting Infections: ' + str(self.settings_dic.get('Starting Infections')), 1, HUD.black)
+        self.average_iq_render = HUD.font.render('Average IQ: ' + str(self.settings_dic.get('Average Persons IQ')), 1, HUD.black)
+        self.iq_range_render = HUD.font.render('IQ Range: ' + str(self.settings_dic.get('Persons IQ Range')), 1, HUD.black)
 
         # Middle
         self.live_stats_render = HUD.b_font.render('Live Simulation Stats:', 1, HUD.black)
@@ -84,6 +88,9 @@ class HUD:
         display.blit(self.num_houses_render, (HUD.border, HUD.border + 17))
         display.blit(self.num_stores_render, (HUD.border, HUD.border + 17 * 2))
         display.blit(self.total_people_render, (HUD.border, HUD.border + 17 * 3))
+        display.blit(self.starting_infections_render, (HUD.border, HUD.border + 17 * 4))
+        display.blit(self.average_iq_render, (HUD.border + 190, HUD.border + 17))
+        display.blit(self.iq_range_render, (HUD.border + 190, HUD.border + 17 * 2))
 
         # middle top of hud  will have the current stats of the simulation
         display.blit(self.live_stats_render, (HUD.screen_w / 2 - self.live_stats_render.get_width() / 2, HUD.border))

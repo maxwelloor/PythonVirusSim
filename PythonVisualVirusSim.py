@@ -12,20 +12,24 @@ pygame.init()
 
 display = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 
+sim_settings = lib.SimulationSetup(display)
+settings_dic = sim_settings.get_setup_dic()
+
 FPS = 30
 fps_clock = pygame.time.Clock()
 
 simulator = lib.TimeManager()
-virus = lib.Virus(10, 50, 3, 50, 14)
+virus = lib.Virus(settings_dic.get('Spread Chance'), settings_dic.get('Lethality'), settings_dic.get('Noticibility'),
+                 settings_dic.get('Recovery Chance'), settings_dic.get('Recovery Time'))
 
-houses = 100
-stores = 100
+houses = settings_dic.get('Homes')
+stores = settings_dic.get('Stores')
 
 lib.Building.generate_buildings(houses, stores)
-lib.Person.generate_people(lib.Building.get_homes(), 2, 50, 50)
+lib.Person.generate_people(lib.Building.get_homes(), settings_dic.get('Starting Infections'), settings_dic.get('Average Persons IQ'), settings_dic.get('Persons IQ Range'))
 
 scroller = lib.Scroller(lib.Building.total_y)
-hud = lib.HUD(houses, stores, virus)
+hud = lib.HUD(houses, stores, virus, settings_dic)
 
 lib.Person.people[0].decide_stay_home(virus, lib.Person.people)
 
