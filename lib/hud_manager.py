@@ -12,6 +12,7 @@ class HUD:
     black = (0, 0, 0)
     font = pygame.font.SysFont('arial', 16)
     b_font = pygame.font.SysFont('arial', 16, True)
+    right_side_offset = 160
 
     def __init__(self, num_houses, num_stores, virus):
         self.current_infections = 0
@@ -37,6 +38,12 @@ class HUD:
         self.people_alive_render = HUD.font.render('People Alive: ' + str(self.people_alive), 1, HUD.black)
         self.time_render = HUD.font.render('Time: ' + str(self.time), 1, HUD.black)
         self.day_render = HUD.font.render('Day: ' + str(self.day), 1, HUD.black)
+
+        # Right
+        self.virus_render = HUD.b_font.render('Virus Stats:', 1, HUD.black)
+        self.virus_spread_chance = HUD.font.render('Spread Chance: ' + str(virus.spread_chance), 1, HUD.black)
+        self.virus_lethality_chance = HUD.font.render('Lethality Chance: ' + str(virus.lethality), 1, HUD.black)
+        self.virus_noticibility = HUD.font.render('Virus Noticibility: ' + str(virus.noticibilty), 1, HUD.black)
 
     def update(self, ci, ti, td, tr, pa, virus, time, day):
         self.current_infections = ci
@@ -89,6 +96,11 @@ class HUD:
         display.blit(self.people_alive_render, (HUD.screen_w / 2 - self.people_alive_render.get_width() - HUD.middle_gap, HUD.border + 17 * 4))
         display.blit(self.virus_discovered_render, (HUD.screen_w / 2 + HUD.middle_gap, HUD.border + 17 * 4))
 
-        # right side of top hud will have virus settings
+        # right side of top hud will have virus settings.
+        display.blit(self.virus_render, (HUD.screen_w - HUD.border - HUD.right_side_offset, HUD.border))
+        display.blit(self.virus_spread_chance, (HUD.screen_w - HUD.border - HUD.right_side_offset, HUD.border + self.virus_spread_chance.get_height()))
+        display.blit(self.virus_lethality_chance, (HUD.screen_w - HUD.border - HUD.right_side_offset, HUD.border + self.virus_spread_chance.get_height() * 2))
+        display.blit(self.virus_noticibility, (HUD.screen_w - HUD.border - HUD.right_side_offset, HUD.border + self.virus_spread_chance.get_height() * 3))
+        
 
         
