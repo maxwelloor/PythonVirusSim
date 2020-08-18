@@ -85,6 +85,7 @@
     <Content Include="sprites\person_bar_house\b3.png" />
     <Content Include="sprites\person_bar_house\b4.png" />
     <Content Include="sprites\person_bar_house\b5.png" />
+    <Content Include="sprites\sick_counter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

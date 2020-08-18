@@ -16,16 +16,18 @@ FPS = 30
 fps_clock = pygame.time.Clock()
 
 simulator = lib.TimeManager()
-virus = lib.Virus(10, 100, 10)
+virus = lib.Virus(10, 50, 3)
 
-houses = 100
-stores = 100
+houses = 20
+stores = 20
 
 lib.Building.generate_buildings(houses, stores)
-lib.Person.generate_people(lib.Building.get_homes(), 2)
+lib.Person.generate_people(lib.Building.get_homes(), 2, 50, 50)
 
 scroller = lib.Scroller(lib.Building.total_y)
 hud = lib.HUD(houses, stores, virus)
+
+lib.Person.people[0].decide_stay_home(virus, lib.Person.people)
 
 print(f'Starting sim with {str(len(lib.Person.people))} people ({lib.Person.infection_count} starting infections), {str(len(lib.Building.homes))} homes and {str(len(lib.Building.stores))} stores.')
 
