@@ -2,12 +2,14 @@ import random
 
 class Virus:
 
-    def __init__(self, spread_chance, lethality, noticibility):
+    def __init__(self, spread_chance, lethality, noticibility, r_chance, r_time):
 
         # All these are chances out of 1000.
         self.spread_chance = spread_chance
         self.lethality = lethality
         self.noticibilty = noticibility
+        self.recovery_chance = r_chance
+        self.recovery_time = r_time
         self.noticed = False
 
     def roll_spread_chance(self):
@@ -31,6 +33,14 @@ class Virus:
 
         if roll <= self.noticibilty * current_deaths:
             self.notice()
+
+    def roll_recovery_chance(self):
+        roll = random.randint(0, 1000)
+
+        if roll <= self.recovery_chance:
+            return True
+        else:
+            return False
 
     def notice(self):
         if not self.noticed:

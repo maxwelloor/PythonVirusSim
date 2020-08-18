@@ -22,14 +22,10 @@ class TimeManager:
 
         for person in people:
             if person.infected:
-                if person.days_infected <= 14:
-                    person.days_infected += 1
-                    if virus.roll_death_chance():
-                        person.kill()
-                        deaths += 1
-                else:
-                    person.recover()
-                    recoveries += 1
+                person.days_infected += 1
+                if virus.roll_death_chance():
+                    person.kill()
+                    deaths += 1
 
         people[0].decide_stay_home(virus, people)
 
@@ -92,7 +88,14 @@ class TimeManager:
                     else:
                         if p.location == location_to_check:
                             if virus.roll_spread_chance():
-                                p.infect() 
+                                p.infect()
+
+        for person in people:
+            if person.infected:
+                if person.days_infected >= virus.recovery_time:
+                    if virus.roll_recovery_chance():
+                        person.recover()
+
         
         self.time += 1
 

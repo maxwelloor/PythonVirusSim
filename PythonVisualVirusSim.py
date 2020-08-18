@@ -16,10 +16,10 @@ FPS = 30
 fps_clock = pygame.time.Clock()
 
 simulator = lib.TimeManager()
-virus = lib.Virus(10, 50, 3)
+virus = lib.Virus(10, 50, 3, 50, 14)
 
-houses = 20
-stores = 20
+houses = 100
+stores = 100
 
 lib.Building.generate_buildings(houses, stores)
 lib.Person.generate_people(lib.Building.get_homes(), 2, 50, 50)
