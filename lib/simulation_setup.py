@@ -195,7 +195,6 @@ class SimulationSetup:
             self.display.blit(self.press_enter_render, (1920 / 2 - self.press_enter_render.get_width() / 2, 800))
 
             pygame.display.update()
-            pygame.event.pump()
 
     def get_setup_dic(self):
         return self.setup_dic
