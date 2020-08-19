@@ -19,7 +19,7 @@ FPS = 30
 fps_clock = pygame.time.Clock()
 
 simulator = lib.TimeManager()
-virus = lib.Virus(settings_dic.get('Spread Chance'), settings_dic.get('Lethality'), settings_dic.get('Noticibility'),
+virus = lib.Virus(settings_dic.get('Spread Chance'), settings_dic.get('Mortality'), settings_dic.get('Noticibility'),
                  settings_dic.get('Recovery Chance'), settings_dic.get('Recovery Time'))
 
 houses = settings_dic.get('Homes')
