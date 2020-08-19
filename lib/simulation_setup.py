@@ -1,4 +1,5 @@
 import pygame
+import random
 import sys
 
 class Button:
@@ -93,6 +94,7 @@ class NumberPicker:
         self.display = display
         self.label = lbl
         self.value = default_value
+        self.d_value = default_value
         self.min = min_value
         self.max = max_value
         self.x, self.y = pos
@@ -123,6 +125,45 @@ class NumberPicker:
             b.render(self.display)
 
 
+class FuncButton:
+
+    def __init__(self, x, y, click_func, type):
+        self.x = x
+        self.y = y
+        self.w = 50
+        self.h = 50
+        self.func = click_func
+
+        if type == 'random':
+            self.img = pygame.image.load('sprites\\randomize.png')
+        elif type == 'reset':
+            self.img = pygame.image.load('sprites\\reset.png')
+
+        self.scrolled_over = False
+
+    def clicked(self, np_list):
+        self.func(np_list)
+
+    def render(self, display):
+        if self.scrolled_over:
+            pygame.draw.rect(display, Button.dark_gray, (self.x, self.y, self.w, self.h))
+        else:
+            pygame.draw.rect(display, Button.gray, (self.x, self.y, self.w, self.h))
+
+        display.blit(self.img, (self.x + 9, self.y + 9))
+
+
+def SetDefaults(np_list):
+    for np in np_list:
+        np.value = np.d_value
+
+def RandomizeValues(np_list):
+    for np in np_list:
+        roll = random.randint(np.min, np.max)
+
+        np.value = roll
+
+
 class SimulationSetup:
 
     background = (50, 50, 50)
@@ -130,21 +171,26 @@ class SimulationSetup:
 
     def __init__(self, display):
         self.number_pickers = [
-        NumberPicker(display, 'Homes', 100, 1, 2000, (200, 100)),
-        NumberPicker(display, 'Stores', 100, 1, 2000, (200, 200)),
+        NumberPicker(display, 'Homes', 100, 0, 2000, (200, 100)),
+        NumberPicker(display, 'Stores', 100, 0, 2000, (200, 200)),
         NumberPicker(display, 'Starting Infections', 2, 1, 100, (200, 300)),
-        NumberPicker(display, 'Average Persons IQ', 50, 1, 100, (200, 400)),
-        NumberPicker(display, 'Persons IQ Range', 50, 1, 100, (200, 500)),
-        NumberPicker(display, 'Spread Chance', 10, 1, 1000, (855, 100)),
-        NumberPicker(display, 'Lethality', 30, 1, 1000, (855, 200)),
-        NumberPicker(display, 'Noticibility', 3, 1, 1000, (855, 300)),
-        NumberPicker(display, 'Recovery Time', 10, 1, 200, (855, 400)),
-        NumberPicker(display, 'Recovery Chance', 50, 1, 1000, (855, 500))
+        NumberPicker(display, 'Average Persons IQ', 50, 0, 100, (200, 400)),
+        NumberPicker(display, 'Persons IQ Range', 50, 0, 100, (200, 500)),
+        NumberPicker(display, 'Spread Chance', 10, 0, 1000, (855, 100)),
+        NumberPicker(display, 'Lethality', 30, 0, 1000, (855, 200)),
+        NumberPicker(display, 'Noticibility', 3, 0, 1000, (855, 300)),
+        NumberPicker(display, 'Recovery Time', 10, 0, 200, (855, 400)),
+        NumberPicker(display, 'Recovery Chance', 50, 0, 1000, (855, 500))
         ]
 
         self.press_enter_render = SimulationSetup.font.render('Press Enter to Start...', 1, Button.black)
         self.simulation_settings_render = SimulationSetup.font.render('Simulation Settings:', 1, Button.black)
         self.virus_settings_render = SimulationSetup.font.render('Virus Settings:', 1, Button.black)
+
+        self.func_buttons = [
+        FuncButton(633, 0, RandomizeValues, 'random'),
+        FuncButton(578, 0, SetDefaults, 'reset')
+        ]
 
         self.display = display
         self.run = True
@@ -173,6 +219,10 @@ class SimulationSetup:
                         if pygame.Rect(button.x, button.y, button.w, button.h).collidepoint(pos):
                             button.clicked()
 
+                    for button in self.func_buttons:
+                        if pygame.Rect(button.x, button.y, button.w, button.h).collidepoint(pos):
+                            button.clicked(self.number_pickers)
+
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         self.end_setup()
@@ -185,6 +235,12 @@ class SimulationSetup:
                 else:
                     button.scrolled_over = False
 
+            for button in self.func_buttons:
+                if pygame.Rect(button.x, button.y, button.w, button.h).collidepoint(m_pos):
+                    button.scrolled_over = True
+                else:
+                    button.scrolled_over = False
+
             self.display.fill(SimulationSetup.background)
 
             self.display.blit(self.simulation_settings_render, (100, 0))
@@ -192,6 +248,9 @@ class SimulationSetup:
 
             for np in self.number_pickers:
                 np.render()
+
+            for button in self.func_buttons:
+                button.render(self.display)
 
             self.display.blit(self.press_enter_render, (1920 / 2 - self.press_enter_render.get_width() / 2, 800))
 
